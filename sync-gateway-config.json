@@ -1,0 +1,16 @@
+{
+  "bootstrap": {
+    "server": "couchbase://localhost",
+    "username": "Administrator",
+    "password": "admins123"
+  },
+  "api": {
+    "https": {}
+  },
+  "logging": {},
+  "auth": {},
+  "replicator": {},
+  "unsupported": {
+    "serverless": {}
+  }
+}

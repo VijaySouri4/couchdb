@@ -1,0 +1,17 @@
+{
+  "log": ["*"],
+  "databases": {
+    "notes-app": {
+    "server": "http://localhost:8091",
+      "bucket": "notes-app",
+      "username": "Administrator", 
+      "password": "admins123", 
+      "enable_shared_bucket_access": true,
+      "import_docs": "continuous",
+    "sync": "function (doc, oldDoc) { if (doc.type === \"note\") { channel(doc.channels); } }",
+      "users": {
+        "GUEST": { "disabled": false, "admin_channels": ["*"] }
+      }
+    }
+  }
+}
