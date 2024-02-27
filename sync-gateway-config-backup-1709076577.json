@@ -1,0 +1,29 @@
+{
+  "logging": {
+    "console": {
+      "log_keys": ["*"],
+      "log_level": "info"
+    }
+  },
+  "databases": {
+    "notes-app": {
+      "server": "couchbase://localhost",
+      "bucket": "notes-app",
+      "username": "Administrator",
+      "password": "admins123",
+      "enable_shared_bucket_access": true,
+      "import_docs": true,
+      "sync": `function (doc, oldDoc) {
+        if (doc.type == "note") {
+          channel(doc.channels);
+        }
+      }`,
+      "users": {
+        "GUEST": {
+          "disabled": false,
+          "admin_channels": ["*"]
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,33 @@
   "api": {
     "https": {}
   },
-  "logging": {},
+  "logging": {
+    "console": {
+      "rotation": {},
+      "log_level": "info",
+      "log_keys": [
+        "*"
+      ]
+    },
+    "error": {
+      "rotation": {}
+    },
+    "warn": {
+      "rotation": {}
+    },
+    "info": {
+      "rotation": {}
+    },
+    "debug": {
+      "rotation": {}
+    },
+    "trace": {
+      "rotation": {}
+    },
+    "stats": {
+      "rotation": {}
+    }
+  },
   "auth": {},
   "replicator": {},
   "unsupported": {

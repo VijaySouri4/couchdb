@@ -2,16 +2,43 @@
   "log": ["*"],
   "databases": {
     "notes-app": {
-    "server": "http://localhost:8091",
+      "server": "couchbases://localhost",
       "bucket": "notes-app",
-      "username": "Administrator", 
-      "password": "admins123", 
+      "username": "sync_gateway",
+      "password": "password",
       "enable_shared_bucket_access": true,
       "import_docs": "continuous",
-    "sync": "function (doc, oldDoc) { if (doc.type === \"note\") { channel(doc.channels); } }",
+      "sync": "function (doc, oldDoc) { if (doc.type === 'note') { channel(doc.channels); } }",
       "users": {
         "GUEST": { "disabled": false, "admin_channels": ["*"] }
+      },
+      "bootstrap": {
+        "use_tls_server": true
       }
+    }
+  },
+  "logging": {
+    "console": {
+      "log_level": "info",
+      "log_keys": ["*"]
+    },
+    "log_file_path": "/var/tmp/sg_logs",
+    "error": {
+      "rotation": {
+        "max_size": 20,
+        "max_age": 180,
+        "localtime": false
+      },
+      "enabled": true
+    },
+    "warn": {
+      "enabled": true
+    },
+    "info": {
+      "enabled": true
+    },
+    "debug": {
+      "enabled": false
     }
   }
 }
