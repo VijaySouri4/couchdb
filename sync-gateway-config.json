@@ -1,42 +1,28 @@
 {
-  "bootstrap": {
-    "server": "couchbase://localhost",
-    "username": "Administrator",
-    "password": "admins123"
-  },
-  "api": {
-    "https": {}
-  },
-  "logging": {
-    "console": {
-      "rotation": {},
-      "log_level": "info",
-      "log_keys": [
-        "*"
-      ]
-    },
-    "error": {
-      "rotation": {}
-    },
-    "warn": {
-      "rotation": {}
-    },
-    "info": {
-      "rotation": {}
-    },
-    "debug": {
-      "rotation": {}
-    },
-    "trace": {
-      "rotation": {}
-    },
-    "stats": {
-      "rotation": {}
+  "name": "db",
+  "bucket": "default",
+  "sync": 
+  `
+    function(doc, oldDoc) {
+      if (doc.type == "reject_me") {
+        throw({forbidden : "Rejected document"})
+      } else if (doc.type == "bar") {
+        // add "bar" docs to the "important" channel
+        channel("important")
+      } else if (doc.type == "secret") {
+        if (!doc.owner) {
+          throw({forbidden : "Secret documents must have an owner field"})
+        }
+      } else {
+        // all other documents just go into all channels listed in the doc["channels"] field
+        channel(doc.channels)
+        
+        // Expire documents based on document "expiry" property
+        expiry(doc.expiry)    
+      }
     }
-  },
-  "auth": {},
-  "replicator": {},
-  "unsupported": {
-    "serverless": {}
-  }
+  `,
+  "revs_limit": 20,
+  "allow_conflicts": false,
+  "num_index_replicas": 0
 }
